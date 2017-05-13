@@ -7,3 +7,5 @@ require('werkzeug-reloader-patch').install()
 ```
 
   [Node.Py]: https://github.com/nodepy/nodepy
+
+> Note: Uses undocumented Werkzeug API.
