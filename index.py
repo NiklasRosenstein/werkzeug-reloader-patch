@@ -28,6 +28,8 @@ import functools
 import sys
 import werkzeug._reloader as _reloader
 
+_installed = False
+
 def monkey_patch(obj, member):
   """
   Monkey-patch a function called *member* in *obj* with the decorated function.
@@ -48,6 +50,9 @@ def install():
   Installs the patch for the `werkzeug._reloader` module.
   """
 
+  global _installed
+  if _installed: return
+
   if _reloader.reloader_loops['auto'] == _reloader.reloader_loops['watchdog']:
     print("[werkzeug-reloader - WARNING]: default reloader is 'watchdog', "
           "werkzeug-reloader only supports 'stat'.", file=sys.stderr)
@@ -63,3 +68,8 @@ def install():
     args = __old()
     args[0:1] = nodepy.proc_args
     return args
+
+  _installed = True
+
+def init_extension(package):
+  install()
