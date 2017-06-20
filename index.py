@@ -71,5 +71,5 @@ def install():
 
   _installed = True
 
-def init_extension(package):
+def init_extension(package, module):
   install()
