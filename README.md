@@ -1,16 +1,19 @@
-# nodepy/werkzeug-reloader-patch
+# werkzeug-reloader-patch
+
+  [Node.py]: https://nodepy.org
 
 A monkey-patch for the Werkzeug reloader for use with [Node.Py].
 
-    $ nppm install --save-ext @nodepy/werkzeug-reloader-patch
+## Install
 
-Alternatively, use the `install()` function before starting a
-Werkzeug application.
+    $ nodepy-pm install --save git+https://github.com/nodepy/werkzeug-reloader-patch.git
+
+## Usage
 
 ```python
 require('werkzeug-reloader-patch').install()
 ```
 
-  [Node.Py]: https://github.com/nodepy/nodepy
+## Note
 
-> Note: Uses undocumented Werkzeug API.
+This module uses undocumented Werkzeug API.

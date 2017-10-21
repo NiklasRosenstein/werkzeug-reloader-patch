@@ -1,6 +1,0 @@
-{
-  "name": "@nodepy/werkzeug-reloader-patch",
-  "version": "0.0.4",
-  "description": "A monkey-patch for the Werkzeug reloader for use with Node.Py",
-  "license": "MIT"
-}
