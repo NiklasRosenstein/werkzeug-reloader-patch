@@ -52,3 +52,7 @@ def install():
     return args
 
   _installed = True
+
+
+def init_extension(*args):
+  install()
