@@ -5,6 +5,7 @@ Monkey-patch for the Werkzeug application reloader.
 import nodepy
 import functools
 import sys
+import warnings
 import werkzeug._reloader as _reloader
 
 _installed = False
@@ -34,9 +35,12 @@ def install():
   global _installed
   if _installed: return
 
-  if _reloader.reloader_loops['auto'] == _reloader.reloader_loops['watchdog']:
-    print("[werkzeug-patch - WARNING]: default reloader is 'watchdog', "
-          "werkzeug-patch only supports 'stat'.", file=sys.stderr)
+  if _reloader.reloader_loops['auto'] != _reloader.reloader_loops['stat']:
+    name = module.package.name
+    kind = dict((v, k) for k, v in _reloader.reloader_loops.items() if k != 'auto').get(_reloader.reloader_loops['auto'], '???')
+    message = '{}: Reloader "{}" is not supported. Using "stat" reloader instead.'
+    warnings.warn(message.format(name, kind), UserWarning)
+    _reloader.reloader_loops['auto'] = _reloader.reloader_loops['stat']
 
   @monkey_patch(_reloader, '_iter_module_files')
   def _iter_module_files(__old):
@@ -55,7 +59,6 @@ def install():
       return args
 
   _installed = True
-
 
 def init_extension(*args):
   install()
